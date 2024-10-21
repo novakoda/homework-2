@@ -1,0 +1,154 @@
+/*
+    Program name: index.html
+    Author: James Williams
+    Date created: 9/16/24
+    Date last edited: 9/21/24
+    Version: 1.7
+    Description: A patient signup form for Kelsey-Seybold Clinic
+*/
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#header {
+    font-family: 'Verdana', Tahoma, sans-serif;
+    text-align: center;
+    color: #3d98b3;
+    margin: 20px 0;
+}
+
+#logo {
+    width: 50px;
+    height: 50px;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-spacing: 0;
+}
+
+td {
+    padding: 10px 20px;
+    margin: 10px;
+    vertical-align: middle;
+}
+
+/* tr {
+    display: block;
+} */
+
+#last {
+    padding-bottom: 1em;
+}
+
+.dob {
+    padding-top: 40px;
+}
+
+#genders {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.gender {
+    margin-left: 25px;
+    margin-right: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: none;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+button {
+    background-color: #3d98b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #2e7186;
+}
+
+button[type="reset"] {
+    background-color: #f44336;
+}
+
+button[type="reset"]:hover {
+    background-color: #d32f2f;
+}
+
+footer {
+    background-color: #3d98b3;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+footer button {
+    background-color: #fff;
+    color: #3d98b3;
+    padding: 10px 20px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+footer button:hover {
+    background-color: #f1f1f1;
+    color: #3d98b3;
+}
+
+footer p, footer a {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
