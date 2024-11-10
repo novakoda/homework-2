@@ -2,8 +2,8 @@
     Program name: index.html
     Author: James Williams
     Date created: 9/16/24
-    Date last edited: 9/21/24
-    Version: 1.8
+    Date last edited: 11/09/24
+    Version: 2.3
     Description: A patient signup form for Kelsey-Seybold Clinic
 -->
 
@@ -22,33 +22,46 @@
         <h1>Welcome to Kelsey-Seybold</h1>
         <p id="header-date"></p>
     </div>
-    <form action="homework1-thankyou.html" method="post" onsubmit="return validateForm()">
+    <form action="homework1-thankyou.html" method="post" onsubmit="submitForm()">
         <table>
             <tr>
                 <td>First Name:</td>
-                <td colspan="2"><input type="text" name="firstName" maxlength="30" pattern="[A-Za-z'-]+" title="Enter 1 to 30 characters. Letters, apostrophes, and dashes only." required></td>
-                <td>Middle Initial:</td>
-                <td><input type="text" name="middleInitial" maxlength="1" pattern="[A-Za-z]" title="Enter a single letter (optional)"></td>
+                <td colspan="2"><input type="text" name="firstName" maxlength="30" pattern="[A-Za-z'\-]+" title="Enter 1 to 30 characters. Letters, apostrophes, and dashes only." required onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
+                <td>Middle:</td>
+                <td><input type="text" name="middleInitial" maxlength="1" pattern="[A-Za-z]" title="Enter a single letter (optional)" onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
             </tr>
             <tr id="last">
                 <td>Last Name:</td>
-                <td colspan="2"><input type="text" name="lastName" maxlength="30" pattern="[A-Za-z'-2-5]+" title="Enter 1 to 30 characters. Letters, apostrophes, numbers 2 to 5, and dashes only." required></td>
+                <td colspan="2"><input type="text" name="lastName" maxlength="30" pattern="[A-Za-z'\-2-5]+" title="Enter 1 to 30 characters. Letters, apostrophes, numbers 2 to 5, and dashes only." required onchange="validateField(this)" onkeypress="return /[A-Za-z'-2-5]/.test(event.key)"></td>
             </tr>
             <tr>
                 <td class="dob">Date of Birth:</td>
-                <td colspan="2" class="dob"><input type="text" name="dob" placeholder="MM/DD/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Enter date in MM/DD/YYYY format" required onchange="validateDOB(this)"></td>
+                <td colspan="2" class="dob"><input type="text" name="dob" placeholder="MM/DD/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Enter date in MM/DD/YYYY format" required onchange="validateDOB(this)" onkeypress="return /[\d]/.test(event.key)" oninput="formatDate(this)" maxlength="10"></td>
+            </tr>
+            <tr>
+                <td>Social Security:</td>
+                <td colspan="2">
+                    <div style="position: relative;">
+                        <input type="text" name="ssn" id="ssn" pattern="\d{3}-\d{2}-\d{4}" placeholder="XXX-XX-XXXX" title="Enter a 9-digit SSN" oninput="formatSSN(this)" required>
+                        <div id="ssnMask"></div>
+                    </div>
+
+                </td>
             </tr>
             <tr>
                 <td>Address Line 1:</td>
-                <td colspan="2"><input type="text" name="address1" maxlength="30"></td>
+                <td colspan="2"><input type="text" name="address1" minlength="2" maxlength="30" pattern="[0-9]+[\s]?[A-Za-z\s]+" title="Enter numbers followed by a space and letters" required onchange="validateField(this)" onkeypress="return /[A-Za-z0-9\s]/.test(event.key)">
+                </td>
             </tr>
             <tr>
                 <td>Address Line 2:</td>
-                <td colspan="2"><input type="text" name="address2" maxlength="30"></td>
+                <td colspan="2"><input type="text" name="address2" minlength="2" maxlength="30" pattern="[A-Za-z0-9\s]+" title="Enter apartment/unit number (letters, numbers and spaces allowed)" onchange="validateField(this)" onkeypress="return /[A-Za-z0-9\s]/.test(event.key)">
+
+                </td>
             </tr>
             <tr>
                 <td>City:</td>
-                <td><input type="text" name="city" maxlength="30"></td>
+                <td><input type="text" name="city" minlength="2" maxlength="30" required onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
             </tr>
             <tr>
                 <td>State:</td>
@@ -107,25 +120,29 @@
                         <option value="WY">Wyoming</option>
                         <option value="DC">Washington, D.C.</option>
                         <option value="PR">Puerto Rico</option>
+                        <option value="NULL">NULL</option>
                     </select>
                 </td>
-                <td>Zip Code:</td>
-                <td><input type="text" name="zip" maxlength="10" pattern="^\d{5}(-\d{4})?$" title="Enter a 5-digit zip code, or 9-digit zip+4" required></td>
+                <td>Zip:</td>
+                <td><input type="text" name="zip" maxlength="5" pattern="^\d{5}$" title="Enter a 5-digit zip code" required onchange="validateField(this)" onkeypress="return /[\d]/.test(event.key)">
+                </td>
             </tr>
             <tr>
                 <td>Email:</td>
-                <td colspan="5"><input type="email" id="email" name="email" placeholder="name@domain.tld" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address" required></td>
+                <td colspan="5"><input type="email" name="email" id="email" pattern="[a-zA-Z0-9._\%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}" title="Enter a valid email address (e.g., name@example.com)" required oninput="validateField(this)" onchange="validateField(this)"></td>
             </tr>
             <tr>
                 <td>Phone Number:</td>
-                <td colspan="5"><input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Enter phone number in 000-000-0000 format" required></td>
+                <td colspan="5"><input type="tel" name="phone" id="phone" pattern="\(\d{3}\)\d{3}-\d{4}" maxlength="13" placeholder="(XXX)XXX-XXXX" title="Enter a valid phone number" required oninput="formatPhone(this)" onkeypress="return /[\d]/.test(event.key)"></td>
             </tr>
             <tr>
-                <td>Describe your current symptoms:</td>
-                <td colspan="5"><textarea name="symptoms" rows="3" cols="50"></textarea></td>
+                <td colspan="6"><hr>Describe your current symptoms</td>
+                <!-- <td colspan="5"><textarea name="symptoms" rows="3" cols="50"></textarea></td> -->
             </tr>
+            <tr><td colspan="6"><textarea name="symptoms" rows="3" cols="50"></textarea></td></tr>
+
             <tr>
-                <td colspan="6">Check all of the following that apply:</td>
+                <td colspan="6"><hr>Check all of the following that apply:</td>
             </tr>
             <tr>
                 <td colspan="6">
@@ -164,15 +181,15 @@
             </tr>
             <tr>
                 <td>Desired User ID:</td>
-                <td colspan="5"><input type="text" name="userID" maxlength="30" pattern="^[a-zA-Z][a-zA-Z0-9_-]{4,29}$" title="5 to 30 characters. Start with a letter. Only letters, numbers, underscores & dashes allowed. No spaces." required></td>
+                <td colspan="5"><input type="text" name="userID" maxlength="30" pattern="^[a-zA-Z][a-zA-Z0-9_\-]{4,29}$" title="5 to 30 characters. Start with a letter. Only letters, numbers, underscores & dashes allowed. No spaces." required onchange="validateField(this)" onkeypress="return /[a-zA-Z0-9_\-]/.test(event.key)"></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td colspan="5"><input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};:'\\|,.<>/?]).{8,30}" title="8-30 characters. Include at least one uppercase letter, one lowercase letter, one number, and one special character." required></td>
+                <td colspan="5"><input type="password" name="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,30}$" title="8-30 characters. Include at least one uppercase letter, one lowercase letter, one number, and one special character." required onchange="validateField(this)"></td>
             </tr>
             <tr>
                 <td>Re-enter Password:</td>
-                <td colspan="5"><input type="password" name="repassword" title="Re-enter your password" required></td>
+                <td colspan="5"><input type="password" name="repassword" title="Re-enter your password" required onchange="validatePasswordMatch(this)"></td>
             </tr>
             <tr>
                 <td>Desired Salary:</td>
@@ -184,7 +201,7 @@
             <tr>
                 <td colspan="2"><button type="reset">CLEAR</button></td>
                 <td colspan="2"><button type="button" onclick="reviewForm()">REVIEW</button></td>
-                <td colspan="2"><button type="submit">SUBMIT</button></td>
+                <td colspan="2"><button onclick="submitForm()">SUBMIT</button></td>
             </tr>
         </table>
         <div id="reviewArea" style="display: none;">

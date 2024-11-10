@@ -2,8 +2,8 @@
     Program name: index.html
     Author: James Williams
     Date created: 9/16/24
-    Date last edited: 9/21/24
-    Version: 1.7
+    Date last edited: 11/09/24
+    Version: 2.0
     Description: A patient signup form for Kelsey-Seybold Clinic
 */
 
@@ -46,6 +46,12 @@ table {
     border-spacing: 0;
 }
 
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
 td {
     padding: 10px 20px;
     margin: 10px;
@@ -77,6 +83,7 @@ td {
 
 input[type="text"],
 input[type="email"],
+input[type="tel"],
 input[type="password"],
 textarea,
 select {
@@ -151,4 +158,25 @@ footer p, footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+.error {
+    border: 2px solid red !important;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 2px;
+    display: block;
+}
+
+#ssnMask {
+    position: absolute;
+    left: 10px;
+    top: 17px;
+    width: 100%;
+    height: 40%;
+    background: white;
+    pointer-events: none;
 }
