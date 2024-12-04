@@ -18,6 +18,28 @@ body {
     min-height: 100vh;
 }
 
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: white;
+    z-index: 100;
+}
+
+main {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 20px;
+}
+
+.iframe-container {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+}
+
 #header {
     font-family: 'Verdana', Tahoma, sans-serif;
     text-align: center;
@@ -127,11 +149,12 @@ button[type="reset"]:hover {
 }
 
 footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     background-color: #3d98b3;
     color: white;
     text-align: center;
-    padding: 20px;
-    width: 100%;
     border-radius: 5px;
 }
 

@@ -17,200 +17,216 @@
     <title>Registration Form</title>
 </head>
 <body>
-    <div id="header">
+    <header id="header">
         <img id="logo" src="kelsey.png" alt="Kelsey-Seybold Clinic">
         <h1>Welcome to Kelsey-Seybold</h1>
         <p id="header-date"></p>
-    </div>
-    <form action="homework1-thankyou.html" method="post" onsubmit="submitForm()">
-        <table>
-            <tr>
-                <td>First Name:</td>
-                <td colspan="2"><input type="text" name="firstName" maxlength="30" pattern="[A-Za-z'\-]+" title="Enter 1 to 30 characters. Letters, apostrophes, and dashes only." required onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
-                <td>Middle:</td>
-                <td><input type="text" name="middleInitial" maxlength="1" pattern="[A-Za-z]" title="Enter a single letter (optional)" onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
-            </tr>
-            <tr id="last">
-                <td>Last Name:</td>
-                <td colspan="2"><input type="text" name="lastName" maxlength="30" pattern="[A-Za-z'\-2-5]+" title="Enter 1 to 30 characters. Letters, apostrophes, numbers 2 to 5, and dashes only." required onchange="validateField(this)" onkeypress="return /[A-Za-z'-2-5]/.test(event.key)"></td>
-            </tr>
-            <tr>
-                <td class="dob">Date of Birth:</td>
-                <td colspan="2" class="dob"><input type="text" name="dob" placeholder="MM/DD/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Enter date in MM/DD/YYYY format" required onchange="validateDOB(this)" onkeypress="return /[\d]/.test(event.key)" oninput="formatDate(this)" maxlength="10"></td>
-            </tr>
-            <tr>
-                <td>Social Security:</td>
-                <td colspan="2">
-                    <div style="position: relative;">
-                        <input type="text" name="ssn" id="ssn" pattern="\d{3}-\d{2}-\d{4}" placeholder="XXX-XX-XXXX" title="Enter a 9-digit SSN" oninput="formatSSN(this)" required>
-                        <div id="ssnMask"></div>
-                    </div>
+        <div id="welcome-message"></div>
+    </header>
 
-                </td>
-            </tr>
-            <tr>
-                <td>Address Line 1:</td>
-                <td colspan="2"><input type="text" name="address1" minlength="2" maxlength="30" pattern="[0-9]+[\s]?[A-Za-z\s]+" title="Enter numbers followed by a space and letters" required onchange="validateField(this)" onkeypress="return /[A-Za-z0-9\s]/.test(event.key)">
-                </td>
-            </tr>
-            <tr>
-                <td>Address Line 2:</td>
-                <td colspan="2"><input type="text" name="address2" minlength="2" maxlength="30" pattern="[A-Za-z0-9\s]+" title="Enter apartment/unit number (letters, numbers and spaces allowed)" onchange="validateField(this)" onkeypress="return /[A-Za-z0-9\s]/.test(event.key)">
-
-                </td>
-            </tr>
-            <tr>
-                <td>City:</td>
-                <td><input type="text" name="city" minlength="2" maxlength="30" required onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
-            </tr>
-            <tr>
-                <td>State:</td>
-                <td>
-                    <select name="state">
-                        <option value="">Select State</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
-                        <option value="AZ">Arizona</option>
-                        <option value="AR">Arkansas</option>
-                        <option value="CA">California</option>
-                        <option value="CO">Colorado</option>
-                        <option value="CT">Connecticut</option>
-                        <option value="DE">Delaware</option>
-                        <option value="FL">Florida</option>
-                        <option value="GA">Georgia</option>
-                        <option value="HI">Hawaii</option>
-                        <option value="ID">Idaho</option>
-                        <option value="IL">Illinois</option>
-                        <option value="IN">Indiana</option>
-                        <option value="IA">Iowa</option>
-                        <option value="KS">Kansas</option>
-                        <option value="KY">Kentucky</option>
-                        <option value="LA">Louisiana</option>
-                        <option value="ME">Maine</option>
-                        <option value="MD">Maryland</option>
-                        <option value="MA">Massachusetts</option>
-                        <option value="MI">Michigan</option>
-                        <option value="MN">Minnesota</option>
-                        <option value="MS">Mississippi</option>
-                        <option value="MO">Missouri</option>
-                        <option value="MT">Montana</option>
-                        <option value="NE">Nebraska</option>
-                        <option value="NV">Nevada</option>
-                        <option value="NH">New Hampshire</option>
-                        <option value="NJ">New Jersey</option>
-                        <option value="NM">New Mexico</option>
-                        <option value="NY">New York</option>
-                        <option value="NC">North Carolina</option>
-                        <option value="ND">North Dakota</option>
-                        <option value="OH">Ohio</option>
-                        <option value="OK">Oklahoma</option>
-                        <option value="OR">Oregon</option>
-                        <option value="PA">Pennsylvania</option>
-                        <option value="RI">Rhode Island</option>
-                        <option value="SC">South Carolina</option>
-                        <option value="SD">South Dakota</option>
-                        <option value="TN">Tennessee</option>
-                        <option value="TX">Texas</option>
-                        <option value="UT">Utah</option>
-                        <option value="VT">Vermont</option>
-                        <option value="VA">Virginia</option>
-                        <option value="WA">Washington</option>
-                        <option value="WV">West Virginia</option>
-                        <option value="WI">Wisconsin</option>
-                        <option value="WY">Wyoming</option>
-                        <option value="DC">Washington, D.C.</option>
-                        <option value="PR">Puerto Rico</option>
-                        <option value="NULL">NULL</option>
-                    </select>
-                </td>
-                <td>Zip:</td>
-                <td><input type="text" name="zip" maxlength="5" pattern="^\d{5}$" title="Enter a 5-digit zip code" required onchange="validateField(this)" onkeypress="return /[\d]/.test(event.key)">
-                </td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td colspan="5"><input type="email" name="email" id="email" pattern="[a-zA-Z0-9._\%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}" title="Enter a valid email address (e.g., name@example.com)" required oninput="validateField(this)" onchange="validateField(this)"></td>
-            </tr>
-            <tr>
-                <td>Phone Number:</td>
-                <td colspan="5"><input type="tel" name="phone" id="phone" pattern="\(\d{3}\)\d{3}-\d{4}" maxlength="13" placeholder="(XXX)XXX-XXXX" title="Enter a valid phone number" required oninput="formatPhone(this)" onkeypress="return /[\d]/.test(event.key)"></td>
-            </tr>
-            <tr>
-                <td colspan="6"><hr>Describe your current symptoms</td>
-                <!-- <td colspan="5"><textarea name="symptoms" rows="3" cols="50"></textarea></td> -->
-            </tr>
-            <tr><td colspan="6"><textarea name="symptoms" rows="3" cols="50"></textarea></td></tr>
-
-            <tr>
-                <td colspan="6"><hr>Check all of the following that apply:</td>
-            </tr>
-            <tr>
-                <td colspan="6">
-                    <input type="checkbox" name="conditions" value="Chicken Pox"> Chicken Pox
-                    <input type="checkbox" name="conditions" value="Measles"> Measles
-                    <input type="checkbox" name="conditions" value="Covid-19"> Covid-19
-                    <input type="checkbox" name="conditions" value="Small Pox"> Small Pox
-                    <input type="checkbox" name="conditions" value="Tetanus"> Tetanus
-                </td>
-            </tr>
-            <tr>
-                <td>Gender:</td>
-                <td id="genders">
-                    <input class="gender" type="radio" name="gender" value="Male">Male
-                    <input class="gender" type="radio" name="gender" value="Female">Female
-                    <input class="gender" type="radio" name="gender" value="Other">Other
-                </td>
-            </tr>
-            <tr>
-                <td>Have you been vaccinated?</td>
-                <td>
-                    <input type="radio" name="vaccinated" value="Yes"> Yes
-                    <input type="radio" name="vaccinated" value="No"> No
-                </td>
-            </tr>
-            <tr>
-                <td>Do you have insurance?</td>
-                <td>
-                    <input type="radio" name="insurance" value="Yes"> Yes
-                    <input type="radio" name="insurance" value="No"> No
-                </td>
-            </tr>
-            <tr>
-                <td>On a scale of 1 to 10, how is your health?</td>
-                <td colspan="5"><input type="range" name="health" min="1" max="10"></td>
-            </tr>
-            <tr>
-                <td>Desired User ID:</td>
-                <td colspan="5"><input type="text" name="userID" maxlength="30" pattern="^[a-zA-Z][a-zA-Z0-9_\-]{4,29}$" title="5 to 30 characters. Start with a letter. Only letters, numbers, underscores & dashes allowed. No spaces." required onchange="validateField(this)" onkeypress="return /[a-zA-Z0-9_\-]/.test(event.key)"></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td colspan="5"><input type="password" name="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,30}$" title="8-30 characters. Include at least one uppercase letter, one lowercase letter, one number, and one special character." required onchange="validateField(this)"></td>
-            </tr>
-            <tr>
-                <td>Re-enter Password:</td>
-                <td colspan="5"><input type="password" name="repassword" title="Re-enter your password" required onchange="validatePasswordMatch(this)"></td>
-            </tr>
-            <tr>
-                <td>Desired Salary:</td>
-                <td colspan="5">
-                    <input type="range" id="salarySlider" name="salary" min="20000" max="200000" step="1000">
-                    <span id="salaryValue"></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"><button type="reset">CLEAR</button></td>
-                <td colspan="2"><button type="button" onclick="reviewForm()">REVIEW</button></td>
-                <td colspan="2"><button onclick="submitForm()">SUBMIT</button></td>
-            </tr>
-        </table>
-        <div id="reviewArea" style="display: none;">
-            <h2>Please Review This Information</h2>
-            <div id="reviewContent"></div>
-            <button onclick="submitForm()">SUBMIT</button>
-            <button onclick="startOver()">START OVER</button>
+    <main>
+        <div class="iframe-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d626780.45427645!2d-95.41435490577285!3d29.791935914508574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sKelsey-Seybold%20Clinic!5e0!3m2!1sen!2sus!4v1733273462792!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-    </form>
+        <form action="homework1-thankyou.html" method="post" onsubmit="submitForm()">
+            <table>
+                <tr>
+                    <div class="remember-me-container">
+                        <label>
+                            <input type="checkbox" id="remember-me" checked>
+                            Remember me on this device
+                        </label>
+                    </div>
+                </tr>
+                <tr>
+                    <td>First Name:</td>
+                    <td colspan="2"><input type="text" name="firstName" maxlength="30" pattern="[A-Za-z'\-]+" title="Enter 1 to 30 characters. Letters, apostrophes, and dashes only." required onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
+                    <td>Middle:</td>
+                    <td><input type="text" name="middleInitial" maxlength="1" pattern="[A-Za-z]" title="Enter a single letter (optional)" onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
+                </tr>
+                <tr id="last">
+                    <td>Last Name:</td>
+                    <td colspan="2"><input type="text" name="lastName" maxlength="30" pattern="[A-Za-z'\-2-5]+" title="Enter 1 to 30 characters. Letters, apostrophes, numbers 2 to 5, and dashes only." required onchange="validateField(this)" onkeypress="return /[A-Za-z'-2-5]/.test(event.key)"></td>
+                </tr>
+                <tr>
+                    <td class="dob">Date of Birth:</td>
+                    <td colspan="2" class="dob"><input type="text" name="dob" placeholder="MM/DD/YYYY" pattern="\d{2}/\d{2}/\d{4}" title="Enter date in MM/DD/YYYY format" required onchange="validateDOB(this)" onkeypress="return /[\d]/.test(event.key)" oninput="formatDate(this)" maxlength="10"></td>
+                </tr>
+                <tr>
+                    <td>Social Security:</td>
+                    <td colspan="2">
+                        <div style="position: relative;">
+                            <input type="text" name="ssn" id="ssn" pattern="\d{3}-\d{2}-\d{4}" placeholder="XXX-XX-XXXX" title="Enter a 9-digit SSN" oninput="formatSSN(this)" required>
+                            <div id="ssnMask"></div>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address Line 1:</td>
+                    <td colspan="2"><input type="text" name="address1" minlength="2" maxlength="30" pattern="[0-9]+[\s]?[A-Za-z\s]+" title="Enter numbers followed by a space and letters" required onchange="validateField(this)" onkeypress="return /[A-Za-z0-9\s]/.test(event.key)">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address Line 2:</td>
+                    <td colspan="2"><input type="text" name="address2" minlength="2" maxlength="30" pattern="[A-Za-z0-9\s]+" title="Enter apartment/unit number (letters, numbers and spaces allowed)" onchange="validateField(this)" onkeypress="return /[A-Za-z0-9\s]/.test(event.key)">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td><input type="text" name="city" minlength="2" maxlength="30" required onchange="validateField(this)" onkeypress="return /[A-Za-z]/.test(event.key)"></td>
+                </tr>
+                <tr>
+                    <td>State:</td>
+                    <td>
+                        <select name="state">
+                            <option value="">Select State</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                            <option value="DC">Washington, D.C.</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="NULL">NULL</option>
+                        </select>
+                    </td>
+                    <td>Zip:</td>
+                    <td><input type="text" name="zip" maxlength="5" pattern="^\d{5}$" title="Enter a 5-digit zip code" required onchange="validateField(this)" onkeypress="return /[\d]/.test(event.key)">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td colspan="5"><input type="email" name="email" id="email" pattern="[a-zA-Z0-9._\%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}" title="Enter a valid email address (e.g., name@example.com)" required oninput="validateField(this)" onchange="validateField(this)"></td>
+                </tr>
+                <tr>
+                    <td>Phone Number:</td>
+                    <td colspan="5"><input type="tel" name="phone" id="phone" pattern="\(\d{3}\)\d{3}-\d{4}" maxlength="13" placeholder="(XXX)XXX-XXXX" title="Enter a valid phone number" required oninput="formatPhone(this)" onkeypress="return /[\d]/.test(event.key)"></td>
+                </tr>
+                <tr>
+                    <td colspan="6"><hr>Describe your current symptoms</td>
+                    <!-- <td colspan="5"><textarea name="symptoms" rows="3" cols="50"></textarea></td> -->
+                </tr>
+                <tr><td colspan="6"><textarea name="symptoms" rows="3" cols="50"></textarea></td></tr>
+
+                <tr>
+                    <td colspan="6"><hr>Check all of the following that apply:</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <input type="checkbox" name="conditions" value="Chicken Pox"> Chicken Pox
+                        <input type="checkbox" name="conditions" value="Measles"> Measles
+                        <input type="checkbox" name="conditions" value="Covid-19"> Covid-19
+                        <input type="checkbox" name="conditions" value="Small Pox"> Small Pox
+                        <input type="checkbox" name="conditions" value="Tetanus"> Tetanus
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td id="genders">
+                        <input class="gender" type="radio" name="gender" value="Male">Male
+                        <input class="gender" type="radio" name="gender" value="Female">Female
+                        <input class="gender" type="radio" name="gender" value="Other">Other
+                    </td>
+                </tr>
+                <tr>
+                    <td>Have you been vaccinated?</td>
+                    <td>
+                        <input type="radio" name="vaccinated" value="Yes"> Yes
+                        <input type="radio" name="vaccinated" value="No"> No
+                    </td>
+                </tr>
+                <tr>
+                    <td>Do you have insurance?</td>
+                    <td>
+                        <input type="radio" name="insurance" value="Yes"> Yes
+                        <input type="radio" name="insurance" value="No"> No
+                    </td>
+                </tr>
+                <tr>
+                    <td>On a scale of 1 to 10, how is your health?</td>
+                    <td colspan="5"><input type="range" name="health" min="1" max="10"></td>
+                </tr>
+                <tr>
+                    <td>Desired User ID:</td>
+                    <td colspan="5"><input type="text" name="userID" maxlength="30" pattern="^[a-zA-Z][a-zA-Z0-9_\-]{4,29}$" title="5 to 30 characters. Start with a letter. Only letters, numbers, underscores & dashes allowed. No spaces." required onchange="validateField(this)" onkeypress="return /[a-zA-Z0-9_\-]/.test(event.key)"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td colspan="5"><input type="password" name="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,30}$" title="8-30 characters. Include at least one uppercase letter, one lowercase letter, one number, and one special character." required onchange="validateField(this)"></td>
+                </tr>
+                <tr>
+                    <td>Re-enter Password:</td>
+                    <td colspan="5"><input type="password" name="repassword" title="Re-enter your password" required onchange="validatePasswordMatch(this)"></td>
+                </tr>
+                <tr>
+                    <td>Desired Salary:</td>
+                    <td colspan="5">
+                        <input type="range" id="salarySlider" name="salary" min="20000" max="200000" step="1000">
+                        <span id="salaryValue"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="reset">CLEAR</button></td>
+                    <td colspan="2"><button type="button" onclick="reviewForm()">REVIEW</button></td>
+                    <td colspan="2"><button onclick="submitForm()">SUBMIT</button></td>
+                </tr>
+            </table>
+            <div id="reviewArea" style="display: none;">
+                <h2>Please Review This Information</h2>
+                <div id="reviewContent"></div>
+                <button onclick="submitForm()">SUBMIT</button>
+                <button onclick="startOver()">START OVER</button>
+            </div>
+        </form>
+    </main>
+
 
     <footer>
         <p> Kelsey-Seybold Clinic | 2515 Business Center Dr, Pearland, TX 77584</p>
