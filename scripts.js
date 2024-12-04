@@ -15,28 +15,6 @@ function updateHeaderWithDate() {
     document.getElementById('header-date').innerText = `${day}, ${date}`;
 }
 
-function validateForm() {
-    let isValid = true;
-    const inputs = document.querySelectorAll('input[required], select[required], textarea[required]');
-
-    inputs.forEach(input => {
-        if (!validateField(input)) {
-            isValid = false;
-        }
-    });
-
-    // Special validations
-    if (!validatePasswordMatch(document.querySelector('input[name="repassword"]'))) {
-        isValid = false;
-    }
-
-    if (!validateDOB(document.querySelector('input[name="dob"]'))) {
-        isValid = false;
-    }
-
-    return isValid;
-}
-
 function validateField(input) {
     const errorDiv = input.nextElementSibling?.classList.contains('error-message')
         ? input.nextElementSibling
@@ -261,6 +239,19 @@ function reviewForm() {
 
 function submitForm() {
     if (validateForm()) {
+        const firstName = document.querySelector('input[name="firstName"]').value;
+        console.log('First Name:', firstName);
+
+        if (document.getElementById('remember-me').checked) {
+            console.log('Remember me is checked');
+            setCookie('firstName', firstName, 2);
+        }
+
+        const headerWelcome = document.getElementById('welcome-message');
+        headerWelcome.innerHTML = `Welcome back, ${firstName}!
+            <label><input type="checkbox" id="new-user-check"> Not ${firstName}? Click here to start as a new user</label>`;
+
+        console.log('Current cookies:', document.cookie);
         document.querySelector('form').submit();
     }
 }
@@ -342,6 +333,39 @@ function formatSalary(value) {
     return '$' + Number(value).toLocaleString() + '/year';
 }
 
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()}`;
+    console.log(`Cookie set: ${name}=${value}`);
+    console.log('All cookies:', document.cookie);
+}
+
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function deleteCookie(name) {
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+}
+
+function checkUserStatus() {
+    const firstName = getCookie('firstName');
+    console.log(`Cookie value for firstName: ${firstName}`);
+    const headerWelcome = document.getElementById('welcome-message');
+    const firstNameInput = document.querySelector('input[name="firstname"]');
+
+    if (firstName) {
+        headerWelcome.innerHTML = `Welcome back, ${firstName}!
+            <label><input type="checkbox" id="new-user-check"> Not ${firstName}? Click here to start as a new user</label>`;
+        firstNameInput.value = firstName;
+    } else {
+        headerWelcome.textContent = 'Welcome New User!';
+    }
+}
 // Call the functions once the page is loaded
 window.onload = function() {
     updateHeaderWithDate();
@@ -383,6 +407,23 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             this.classList.remove('error');
             errorDiv.remove();
+        }
+    });
+
+    checkUserStatus();
+
+    // Add remember me checkbox handler
+    document.getElementById('remember-me').addEventListener('change', (e) => {
+        if (!e.target.checked) {
+            deleteCookie('firstName');
+        }
+    });
+
+    // Add new user checkbox handler
+    document.getElementById('new-user-check')?.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            deleteCookie('firstName');
+            location.reload();
         }
     });
 });
