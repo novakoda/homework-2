@@ -417,11 +417,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Reset user cookies handler
+    // Add new user link handler
     document.getElementById('new-user-link')?.addEventListener('click', (e) => {
         e.preventDefault(); // Prevent default link behavior
-        deleteCookie('firstName');
-        location.reload();
+        startOver();
     });
 });
 
