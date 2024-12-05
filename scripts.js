@@ -1,8 +1,8 @@
 // Program name: index.html
 // Author: James Williams
 // Date created: 9/16/24
-// Date last edited: 11/09/24
-// Version: 2.2
+// Date last edited: 12/04/24
+// Version: 3.2
 // Description: A patient signup form for Kelsey-Seybold Clinic
 
 function updateHeaderWithDate() {
@@ -240,18 +240,16 @@ function reviewForm() {
 function submitForm() {
     if (validateForm()) {
         const firstName = document.querySelector('input[name="firstName"]').value;
-        console.log('First Name:', firstName);
 
         if (document.getElementById('remember-me').checked) {
-            console.log('Remember me is checked');
             setCookie('firstName', firstName, 2);
         }
 
         const headerWelcome = document.getElementById('welcome-message');
+        // Replace the existing checkbox label with a hyperlink
         headerWelcome.innerHTML = `Welcome back, ${firstName}!
-            <label><input type="checkbox" id="new-user-check"> Not ${firstName}? Click here to start as a new user</label>`;
+            <a href="#" id="new-user-link">Not ${firstName}? Click here to start as a new user</a>`;
 
-        console.log('Current cookies:', document.cookie);
         document.querySelector('form').submit();
     }
 }
@@ -259,6 +257,7 @@ function submitForm() {
 function startOver() {
     document.querySelector('form').reset();
     document.getElementById('reviewArea').style.display = 'none';
+    deleteCookie('firstName');
 }
 
 function validateForm() {
@@ -337,8 +336,6 @@ function setCookie(name, value, days) {
     const expires = new Date();
     expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
     document.cookie = `${name}=${value};expires=${expires.toUTCString()}`;
-    console.log(`Cookie set: ${name}=${value}`);
-    console.log('All cookies:', document.cookie);
 }
 
 
@@ -350,13 +347,14 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    document.getElementById('welcome-message').textContent = 'Welcome New User!';
 }
 
 function checkUserStatus() {
     const firstName = getCookie('firstName');
     console.log(`Cookie value for firstName: ${firstName}`);
     const headerWelcome = document.getElementById('welcome-message');
-    const firstNameInput = document.querySelector('input[name="firstname"]');
+    const firstNameInput = document.querySelector('input[name="firstName"]');
 
     if (firstName) {
         headerWelcome.innerHTML = `Welcome back, ${firstName}!
@@ -419,12 +417,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Add new user checkbox handler
-    document.getElementById('new-user-check')?.addEventListener('change', (e) => {
-        if (e.target.checked) {
-            deleteCookie('firstName');
-            location.reload();
-        }
+    // Add new user link handler
+    document.getElementById('new-user-link')?.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default link behavior
+        startOver();
     });
+
 });
 
